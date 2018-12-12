@@ -1,0 +1,13 @@
+---
+- hosts: CouchDB
+  become: true
+  tasks:
+   - name: copy the docker compose file to node
+     copy: src=docker-compose.yml dest=/home/ubuntu
+
+   - name: run the docker-compose file to down couchdb server
+     command: chdir=/home/ubuntu /usr/bin/docker-compose down
+
+
+
+

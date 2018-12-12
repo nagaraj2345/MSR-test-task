@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+   db:
+    image: couchdb:latest
+    ports:
+      - 5984:5984
+
+    volumes:
+      - couchdb:/opt/couchdb/data
+      - ./opt/couchdb/etc:/opt/couchdb/etc
+
+#    environment:
+#      - COUCHDB_USER: "admin"
+#      - COUCHDB_PASSWORD: "sharath10"
+
+    networks:
+      - couchdb
+
+
+
+networks:
+  couchdb:
+    driver: bridge
+
+volumes:
+  couchdb:
