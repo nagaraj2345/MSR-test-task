@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  wp:
+    image: bharathpantala/apache-webserver:latest 
+    ports:
+      - 80:80
+    volumes:
+      - webserver:/var/www/html 
+    networks:
+      - webserver  
+
+networks:
+  webserver:
+    driver: bridge
+
+volumes:
+  webserver:

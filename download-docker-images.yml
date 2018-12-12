@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+   - name: pull image
+     command: /usr/bin/docker pull bharathpantala/apache-webserver:latest
+

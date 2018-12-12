@@ -1,0 +1,12 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+   - name: copy the docker compose file to node
+     copy: src=docker-compose.yml dest=/home/ubuntu
+
+   - name: run the docker-compose file to up webserver
+     command: chdir=/home/ubuntu /usr/bin/docker-compose up -d
+
+
+

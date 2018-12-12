@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - name: Downloads archive
+     get_url: url=https://www.openssl.org/source/openssl-1.0.2q.tar.gz dest=/tmp/openssl-1.0.2q.tar.gz
+
+   - name: Extract archive
+     command: chdir=/tmp /bin/tar xvf /tmp/openssl-1.0.2q.tar.gz -C /opt/ creates=/tmp/openssl-1.0.2q
+   
+   - name: make install openssl
+     command: 
+       chdir: "/tmp/openssl-1.0.2q"
+     command: "sudo {{ item }}"    
+     with_items:
+      - ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
+      - make
+      - make install    
+     become: true
+

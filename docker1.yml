@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  tasks: 
+   - name: Install docker 
+     apt: name=docker.io state=present update_cache=yes
+
+   - name : Installs docker-compose
+     apt: name=docker-compose state=present 
+     notify: 
+      - start docker
+   - name: add user "msr"
+     user: name=msr group=docker home=/home/msr createhome=yes
+     become: True
+     become_method: sudo
+     notify:
+      - restart docker
+
+
+
+  handlers:
+   - name: start docker
+     service: name=docker state=started
+   
+   - name: restart docker
+     service: name=docker state=restarted
